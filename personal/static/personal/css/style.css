@@ -1,0 +1,96 @@
+/* Stile base della navbar */
+.navbar {
+    position: fixed; /* Resta sempre visibile */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Nero semi-trasparente */
+    padding: 13px 20px; /* Ridotto il padding */
+    height: 60px; /* Altezza fissa ridotta */
+    transition: all 0.3s ease-in-out; /* Transizione fluida */
+    z-index: 1000; /* Sempre in primo piano */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Leggera ombra */
+    backdrop-filter: blur(5px); /* Effetto sfocato */
+    display: flex; /* Allinea gli elementi orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    justify-content: space-between; /* Spazia logo e link */
+}
+
+/* Stile della navbar quando si scorre */
+.navbar.navbar-scrolled {
+    background: #121212; /* Nero intenso */
+    padding: px 20px; /* Ulteriore riduzione del padding */
+    height: 55px; /* Altezza ridotta ulteriormente */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8); /* Ombra più marcata */
+    border-bottom: 2px solid #f39c12; /* Linea giallo accesa */
+}
+
+/* Stile del logo */
+.navbar .logo {
+    font-size: 1.5rem; /* Ridotto leggermente */
+    font-weight: bold;
+    color: #ffffff; /* Bianco */
+    text-decoration: none;
+    letter-spacing: 1px; /* Spaziatura lettere */
+    text-transform: uppercase; /* Testo in maiuscolo */
+    transition: color 0.3s ease, font-size 0.3s ease;
+}
+
+/* Logo dinamico quando navbar è scorsa */
+.navbar.navbar-scrolled .logo {
+    color: #f39c12; /* Giallo acceso */
+    font-size: 1.3rem; /* Riduzione dimensione logo */
+}
+
+/* Stile dei link */
+.navbar .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Ridotta la spaziatura */
+}
+
+.navbar .nav-links a {
+    color: #dddddd; /* Grigio chiaro */
+    font-size: 0.9rem; /* Ridotto font-size */
+    font-weight: 500;
+    text-decoration: none;
+    position: relative; /* Effetto underline */
+    transition: color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+/* Media Query per dispositivi mobili */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 5px 15px; /* Ulteriore riduzione del padding */
+        height: 50px; /* Altezza fissa per dispositivi mobili */
+    }
+
+    .navbar .menu-toggle {
+        display: block;
+        color: #ffffff;
+        font-size: 1.3rem; /* Riduzione icona menu */
+        cursor: pointer;
+    }
+
+    .navbar .nav-links {
+        display: none; /* Nasconde i link */
+        flex-direction: column;
+        background: #121212;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        z-index: 999;
+    }
+
+    .navbar .nav-links.active {
+        display: flex; /* Mostra il menu */
+    }
+
+    .navbar .nav-links a {
+        text-align: center;
+        padding: 8px 0; /* Riduzione padding verticale */
+        color: #ffffff;
+    }
+}

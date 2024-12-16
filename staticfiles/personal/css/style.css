@@ -1,0 +1,55 @@
+/* Stile base della navbar */
+.navbar {
+    position: fixed; /* Resta sempre visibile */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff; /* Colore bianco per la navbar */
+    padding: 10px 20px; /* Spaziatura interna */
+    transition: all 0.4s ease-in-out; /* Transizione fluida per tutti gli effetti */
+    z-index: 1000; /* Si sovrappone agli altri elementi */
+    box-shadow: none; /* Nessuna ombra iniziale */
+}
+
+/* Stile della navbar quando scorre */
+.navbar.navbar-scrolled {
+    background-color: #34495e; /* Colore scuro di sfondo quando scorre */
+    padding: 5px 20px; /* Riduzione della spaziatura per un effetto compatto */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Ombra elegante */
+    border-bottom: 2px solid #1abc9c; /* Linea colorata */
+}
+
+/* Stile del logo nella navbar */
+.navbar .logo {
+    font-size: 1.5rem; /* Dimensione del logo */
+    color: #2c3e50; /* Colore del testo del logo (nero per navbar bianca) */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    transition: color 0.3s ease; /* Cambio di colore fluido */
+}
+
+/* Quando la navbar è scorsa, cambia il colore del logo */
+.navbar.navbar-scrolled .logo {
+    color: #ecf0f1; /* Cambia colore a bianco quando navbar è scorsa */
+}
+
+/* Stile dei link nella navbar */
+.navbar .nav-links {
+    display: flex;
+    gap: 15px; /* Spaziatura tra i link */
+}
+
+.navbar .nav-links a {
+    color: #2c3e50; /* Colore dei link (nero per navbar bianca) */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    font-weight: bold; /* Testo più marcato */
+    transition: color 0.3s ease; /* Cambio di colore fluido */
+}
+
+/* Quando la navbar è scorsa, cambia colore dei link */
+.navbar.navbar-scrolled .nav-links a {
+    color: #ecf0f1; /* Cambia colore a bianco quando navbar è scorsa */
+}
+
+.navbar .nav-links a:hover {
+    color: #1abc9c; /* Colore evidenziato al passaggio del mouse */
+}
