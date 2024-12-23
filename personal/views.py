@@ -1,12 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from django.views.generic import ListView
+from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
 
-from .models import Article
+
+from .models import Article, Categoria
 from .serializer import PersonalSerializer
 # Create your views here.
 
@@ -53,3 +58,48 @@ class PersonalDetailAPIView(APIView):
 def personal_list_view(request):
     articles = Article.objects.all()  # Ottieni tutti gli articoli
     return render(request, 'personal/home.html', {'articles': articles})
+
+def detail_view(request,pk):
+    articles = get_object_or_404(Article, pk=pk)
+    return render(request, 'personal/detail.html', {'article': articles})
+
+#SEZIONE RELATICA ALL'AUTENTICAZIONE DELL'UTENTE
+def registration(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('personal_list_html')
+    else:
+        form = UserCreationForm()
+
+    # Mostra solo gli errori dopo il submit
+    return render(request, "registration/registration.html", {"form": form})
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return HttpResponseRedirect(reverse('personal_list_html'))
+        else:
+            return render(request, 'registration/login.html', {'error': 'Credenziali non valide'})
+    return render(request, 'registration/login.html')
+
+def new_logout(request):
+    if request.method == 'POST':
+        logout(request)
+        return HttpResponseRedirect(reverse('login'))
+    else:
+        return HttpResponseRedirect(reverse('personal_list_html'))
+#FINE DELLA SEZIONE RELATIVA ALL'AUTENTICAZIONE DELL'UTENTE
+
+#INIZIO DELLA SEZIONE RELATIVA ALLA VISTA 'PROFUMI'
+
+def lista_profumi(request):
+    # Filtra gli articoli la cui categoria ha il nome "Profumi"
+    profumi = Article.objects.filter(categoria__nome="Profumi")
+    
+    return render(request, "personal/profumi.html", {"profumi": profumi})

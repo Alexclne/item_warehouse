@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .errorlist {
+            color: red;
+            margin-bottom: 15px;
+            list-style: none;
+            padding: 0;
+        }
+        input, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <form method="post">
+        <h1>Registrazione</h1>
+        {% csrf_token %}
+        
+        <!-- Errori del Form (vengono mostrati solo se ci sono errori nel submit) -->
+        {% if form.errors %}
+            <ul class="errorlist">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- Visualizza i campi del form -->
+        <div>
+            <label for="{{ form.username.id_for_label }}">Username:</label>
+            {{ form.username }}
+        </div>
+
+        <div>
+            <label for="{{ form.password1.id_for_label }}">Password:</label>
+            {{ form.password1 }}
+        </div>
+
+        <div>
+            <label for="{{ form.password2.id_for_label }}">Password confirmation:</label>
+            {{ form.password2 }}
+        </div>
+
+        <button type="submit">Crea account</button>
+        <p>Hai già un account? <a href="{% url 'login' %}">Accedi qui</a></p>
+    </form>
+</body>
+</html>

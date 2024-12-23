@@ -1,0 +1,127 @@
+{% extends 'personal/commons.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+/* Grid Layout con 4 colonne */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 card per riga */
+    gap: 20px; /* Spazio tra le card */
+    padding: 20px;
+}
+
+/* Card Style */
+.card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Immagini con dimensioni uniformi */
+.card img {
+    width: 100%; /* L'immagine riempie la larghezza della card */
+    height: 200px; /* Altezza fissa per uniformità */
+    object-fit: cover; /* Mantiene proporzioni tagliando l'eccesso */
+    border-bottom: 1px solid #ccc; /* Linea di separazione */
+}
+
+/* Stile del contenuto della card */
+.card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-body h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #007BFF;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 10px 0;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #28a745;
+}
+
+/* Pulsante */
+.btn {
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Responsività */
+@media (max-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 card per riga su schermi medi */
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 card per riga su schermi piccoli */
+    }
+}
+
+@media (max-width: 576px) {
+    .grid {
+        grid-template-columns: 1fr; /* 1 card per riga su schermi molto piccoli */
+    }
+}
+
+</style>
+
+<div class="container">
+    <h1 style="padding-top: 100px;">Profumi Disponibili</h1>
+    <div class="grid">
+        {% for profumo in profumi %}
+        <div class="card">
+            <!-- Immagine dinamica -->
+            {% if article.images %}
+                <img src="{{ article.image }}" alt="{{ profumo.name }}">
+            {% else %}
+                <img src="{% static 'montale_parfums.jpg' %}" alt="Immagine predefinita">
+            {% endif %}
+            <!-- Dettagli della card -->
+            <div class="card-body">
+                <h3>{{ profumo.name }}</h3>
+                <p>{{ profumo.description }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>Nessun profumo disponibile al momento.</p>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

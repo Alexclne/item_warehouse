@@ -1,0 +1,20 @@
+{% extends 'personal/commons.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="mt-5 pt-5 article-detail">
+    <h2>{{ article.name }}</h2>
+    <p><strong>Description:</strong> {{ article.description }}</p>
+    
+    {% if article.image %}
+        <img src="{{ article.image.url }}" alt="Immagine dell'articolo" class="article-image">
+    {% else %}
+        <img src="/static/image.png" alt="Immagine predefinita" class="article-image">
+    {% endif %}
+    
+    <!-- Eventuale link per tornare indietro o altre azioni -->
+    <a href="{% url 'personal-list' %}" class="btn btn-primary">Back to list</a>
+</div>
+
+{% endblock %}
