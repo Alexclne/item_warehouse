@@ -19,5 +19,5 @@ urlpatterns = [
     path('logout/', new_logout, name='logout'),
 
 ]
-if settings.DEBUG:
-    urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:  # Solo durante lo sviluppo
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

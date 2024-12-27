@@ -2,19 +2,167 @@
 {% load static %}
 
 {% block content %}
+<style>
+/* Layout principale con sidebar e contenuto */
+.layout {
+    display: flex; /* Imposta un layout a colonne affiancate */
+    flex-direction: row;
+    margin-top: 100px; /* Spazio dalla navbar */
+    gap: 20px; /* Spazio tra sidebar e contenuto */
+}
 
-<div class="mt-5 pt-5 article-detail">
-    <h2>{{ article.name }}</h2>
-    <p><strong>Description:</strong> {{ article.description }}</p>
-    
-    {% if article.image %}
-        <img src="{{ article.image.url }}" alt="Immagine dell'articolo" class="article-image">
-    {% else %}
-        <img src="/static/image.png" alt="Immagine predefinita" class="article-image">
-    {% endif %}
-    
-    <!-- Eventuale link per tornare indietro o altre azioni -->
-    <a href="{% url 'personal-list' %}" class="btn btn-primary">Back to list</a>
+/* Sidebar */
+.sidebar {
+    flex: 1;
+    max-width: 300px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.sidebar ul li a:hover {
+    color: #007bff;
+}
+
+/* Contenitore principale */
+.container {
+    flex: 3;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid Layout per i profumi */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 card per riga */
+    gap: 20px; /* Spazio tra le card */
+    padding: 20px 0;
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+    width: 100%; /* L'immagine riempie la larghezza della card */
+    height: 200px; /* Altezza fissa per uniformità */
+    object-fit: cover; /* Mantiene proporzioni tagliando l'eccesso */
+    border-bottom: 1px solid #ccc; /* Linea di separazione */
+}
+
+.card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-body h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    color: #007BFF;
+}
+
+.card-body p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 10px 0;
+}
+
+/* Responsività */
+@media (max-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column; /* Sidebar sopra il contenuto */
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<div class="layout">
+    <!-- Sidebar per articoli principali -->
+    <aside class="sidebar">
+        <h2 class="text-warning"><b>Articoli Principali</b></h2>
+        {% for article in articles|slice:":3" %}
+        <div class="article">
+            <h3 class="text-dark"><b>{{ article.name }}</b></h3>
+            <p class="text-dark">{{ article.description }}</p>
+        </div>
+        {% endfor %}
+        <h2 class="text-warning"><b>Categorie</b></h2>
+        <ul>
+            <li><a href="{% url 'profumes_list' %}">Profumi</a></li>
+            <li><a href="">Abbigliamento</a></li>
+            <li><a href="">Trucchi</a></li>
+            <li><a href="">Accessori per la casa</a></li>
+            <li><a href="">Gadget vari</a></li>
+        </ul>
+    </aside>
+
+    <!-- Contenuto principale -->
+    <div class="container">
+        <h1>Profumi Disponibili</h1>
+        <div class="grid">
+            {% for article in articles %}
+            <div class="card">
+                <img src="{{ article.images.url }}" alt="{{ profumo.name }}">
+                <div class="card-body">
+                    <h3>{{ profumo.name }}</h3>
+                    <p>{{ profumo.description }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>Nessun profumo disponibile al momento.</p>
+            {% endfor %}
+        </div>
+    </div>
 </div>
-
 {% endblock %}

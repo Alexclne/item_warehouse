@@ -55,13 +55,31 @@ class PersonalDetailAPIView(APIView):
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)       
 
-def personal_list_view(request):
-    articles = Article.objects.all()  # Ottieni tutti gli articoli
-    return render(request, 'personal/home.html', {'articles': articles})
+def personal_list_view(request, category_name=None):
+    if category_name:
+        # Filtra gli articoli in base alla categoria selezionata
+        articles = Article.objects.filter(categoria__nome=category_name)
+    else:
+        # Se non è specificata una categoria, mostra tutti gli articoli
+        articles = Article.objects.all()
+
+    # Aggiungi tutte le categorie per poterle visualizzare nel template
+    categories = Categoria.objects.all()
+
+    # Passa gli articoli filtrati e le categorie al template
+    return render(request, 'personal/home.html', {'articles': articles, 'categories': categories})
 
 def detail_view(request,pk):
     articles = get_object_or_404(Article, pk=pk)
     return render(request, 'personal/detail.html', {'article': articles})
+
+#INIZIO DELLA SEZIONE RELATIVA ALLA VISTA 'PROFUMI'
+
+def lista_profumi(request):
+    # Filtra gli articoli la cui categoria ha il nome "Profumi"
+    profumi  = Article.objects.filter(categoria__nome="Profumi")
+    
+    return render(request, "personal/profumi.html", {"profumi": profumi})
 
 #SEZIONE RELATICA ALL'AUTENTICAZIONE DELL'UTENTE
 def registration(request):
@@ -96,10 +114,4 @@ def new_logout(request):
         return HttpResponseRedirect(reverse('personal_list_html'))
 #FINE DELLA SEZIONE RELATIVA ALL'AUTENTICAZIONE DELL'UTENTE
 
-#INIZIO DELLA SEZIONE RELATIVA ALLA VISTA 'PROFUMI'
 
-def lista_profumi(request):
-    # Filtra gli articoli la cui categoria ha il nome "Profumi"
-    profumi = Article.objects.filter(categoria__nome="Profumi")
-    
-    return render(request, "personal/profumi.html", {"profumi": profumi})

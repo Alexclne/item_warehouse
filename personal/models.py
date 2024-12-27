@@ -9,7 +9,7 @@ class Categoria(models.Model):
         return self.nome
     
 class Article(models.Model):
-    images = models.ImageField(blank=True)
+    images = models.ImageField(blank=True, null=True, upload_to='articles/') 
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=150)
     date = models.DateTimeField(auto_now_add=True)

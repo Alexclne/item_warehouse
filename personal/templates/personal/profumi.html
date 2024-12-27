@@ -105,8 +105,8 @@
         {% for profumo in profumi %}
         <div class="card">
             <!-- Immagine dinamica -->
-            {% if article.images %}
-                <img src="{{ article.image }}" alt="{{ profumo.name }}">
+            {% if profumo.images %}
+                <img src="{{ profumo.images.url }}" alt="{{ profumo.name }}">
             {% else %}
                 <img src="{% static 'montale_parfums.jpg' %}" alt="Immagine predefinita">
             {% endif %}
