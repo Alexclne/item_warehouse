@@ -114,6 +114,8 @@
             <div class="card-body">
                 <h3>{{ profumo.name }}</h3>
                 <p>{{ profumo.description }}</p>
+                <a href="{% url 'detail_list_html' article.id %}" class="btn btn-warning">Visualizza nel dettaglio </a>
+
             </div>
         </div>
         {% empty %}

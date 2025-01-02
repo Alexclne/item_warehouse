@@ -127,8 +127,7 @@
 }
 </style>
 
-<div class="layout">
-    <!-- Sidebar per articoli principali -->
+  <div class="layout">
     <aside class="sidebar">
         <h2 class="text-warning"><b>Articoli Principali</b></h2>
         {% for article in articles|slice:":3" %}
@@ -136,7 +135,7 @@
             <h3 class="text-dark"><b>{{ article.name }}</b></h3>
             <p class="text-dark">{{ article.description }}</p>
         </div>
-        {% endfor %}
+        {% endfor %} 
         <h2 class="text-warning"><b>Categorie</b></h2>
         <ul>
             <li><a href="{% url 'profumes_list' %}">Profumi</a></li>
@@ -147,21 +146,18 @@
         </ul>
     </aside>
 
-    <!-- Contenuto principale -->
+
     <div class="container">
-        <h1>Profumi Disponibili</h1>
+        <h1>{{  article.name  }}</h1>
         <div class="grid">
-            {% for article in articles %}
             <div class="card">
                 <img src="{{ article.images.url }}" alt="{{ profumo.name }}">
                 <div class="card-body">
-                    <h3>{{ profumo.name }}</h3>
-                    <p>{{ profumo.description }}</p>
+                    <h3>{{ article.name }}</h3>
+                    <p>{{ article.description }}</p>
                 </div>
             </div>
-            {% empty %}
-            <p>Nessun profumo disponibile al momento.</p>
-            {% endfor %}
+
         </div>
     </div>
 </div>

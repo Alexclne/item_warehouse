@@ -1,9 +1,9 @@
-// Cambia il colore della navbar quando si scorre la pagina
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.classList.add('navbar-scrolled');
-    } else {
-        navbar.classList.remove('navbar-scrolled');
-    }
+    navbar.classList.toggle('navbar-scrolled', window.scrollY > 50);
 });
+
+function toggleMenu() {
+    const navLinks = document.getElementById('nav-links');
+    navLinks.classList.toggle('active');
+}

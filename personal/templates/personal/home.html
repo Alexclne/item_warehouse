@@ -80,7 +80,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ article.name }}</h5>
                     <p class="card-text">{{ article.description }}</p>
-                    <a href="{% url 'detail_list_html' pk=article.pk %}" class="btn btn-warning">Visualizza nel dettaglio </a>
+                    <a href="{% url 'detail_list_html' article.id %}" class="btn btn-warning">Visualizza nel dettaglio </a>
                 </div>
             </div>
             {% endfor %}

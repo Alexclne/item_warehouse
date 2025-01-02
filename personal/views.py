@@ -69,9 +69,9 @@ def personal_list_view(request, category_name=None):
     # Passa gli articoli filtrati e le categorie al template
     return render(request, 'personal/home.html', {'articles': articles, 'categories': categories})
 
-def detail_view(request,pk):
-    articles = get_object_or_404(Article, pk=pk)
-    return render(request, 'personal/detail.html', {'article': articles})
+def detail_view(request,article_id):
+    article = Article.objects.filter(id=article_id).first()
+    return render(request, 'personal/detail.html', {'article': article})
 
 #INIZIO DELLA SEZIONE RELATIVA ALLA VISTA 'PROFUMI'
 

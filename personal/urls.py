@@ -10,7 +10,7 @@ urlpatterns = [
     path("articles/",PersonalListCreateAPIView.as_view(), name="personal-list"),
     path("articles/html/", personal_list_view, name="personal_list_html"),
     path("articles/html/profumi", lista_profumi, name= "profumes_list"),
-    path("articles/html/detail/<int:pk>/", detail_view, name="detail_list_html"),
+    path("articles/html/detail/<int:article_id>/", detail_view, name="detail_list_html"),
     
         #AUTH PATH
     path("accounts/", include("django.contrib.auth.urls")),#importato da django doc
